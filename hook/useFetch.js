@@ -1,41 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2023-2024?output=json";
-
-function useFetch() {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const fetchData = async () => {
-        setIsLoading(true);
-
-        try {
-            const response = await axios.get(url);
-            setData(response.data);
-            setIsLoading(false);
-        } catch(err) {
-            setError(error);
-            console.log("fetchData() Error!", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const refetch = () => {
-        setIsLoading(true);
-        fetchData();
-    };
-        
-    return { data, isLoading, error, refetch };
-};
-
-export default useFetch();
 
 // const useFetch = () => {
 //     const [data, setData] = useState([]);
@@ -44,27 +11,29 @@ export default useFetch();
 
 //     const options = {
 //         method: "GET",
-//         url: "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2023-2024?output=json",
+//         url: url,
 //         headers: {
 //             'Content-Type': 'application/json;charset=UTF-8',
 //             'Access-Control-Allow-Origin': '*',
 //         }
 //     };
 
-//     const fetchData = async () => {
+//     const fetchData = () => {
 //         setIsLoading(true);
 
-//         // console.log("Dit is een test");
+//         console.log("TEST 1");
 
 //         try {
-//             const response = await axios.request(options);
+//             axios.get(url).then(res => setData(res.data));
+
+//             console.log("RESPONSE : ", response);
 
 //             setData(response.data);
 //             setIsLoading(false);
 
 //         } catch(error) {
 //             setError(error);
-//             console.log("DIT IS EEN ERROR!", error);
+//             console.log("ERROR : ", error);
 
 //         } finally {
 //             setIsLoading(false);

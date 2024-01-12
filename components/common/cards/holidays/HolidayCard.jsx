@@ -1,13 +1,21 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { QueryClient, QueryClientProvider, useQuery, } from '@tanstack/react-query';
 
 import { icons } from '../../../../constants';
 import styles from './HolidayCard.style';
-import useFetch from '../../../../hook/useFetch';
+import { COLORS, SIZES } from '../../../../constants';
+// import useFetch from '../../../../hook/useFetch';
 
 const HolidayCard = ({vacation, handleNavigate}) => {
-    const { data, isLoading, error } = useFetch();
+    // const { data, isLoading, error } = useFetch();
 
-    console.log("TEST2")
+    // const { isPending, error, data } = useQuery({
+    //     queryKey: ['data'],
+    //     queryFn: () =>
+    //         fetch(url).then((res) =>
+    //         res.json(),
+    //     ),
+    // });
 
     // Set Logo
     switch(vacation.type.trim()) {
@@ -32,15 +40,15 @@ const HolidayCard = ({vacation, handleNavigate}) => {
     // console.log(vacation.type);
 
     // Fn
-    // let startdate = new Date(vacation.regions[0]?.startdate);
-    // let enddate = new Date(vacation.regions[0].enddate);
-    // let currentdate = new Date();
+    let startdate = new Date(vacation.regions[0]?.startdate);
+    let enddate = new Date(vacation.regions[0].enddate);
+    let currentdate = new Date();
 
     // Return Card
-    // if(enddate >= currentdate) {
+    if(enddate >= currentdate) {
 
-    //     startdate = `${startdate.getDate()}-${startdate.getMonth() + 1}-${startdate.getFullYear()}`;
-    //     enddate = `${enddate.getDate()}-${enddate.getMonth() + 1}-${enddate.getFullYear()}`;
+        startdate = `${startdate.getDate()}-${startdate.getMonth() + 1}-${startdate.getFullYear()}`;
+        enddate = `${enddate.getDate()}-${enddate.getMonth() + 1}-${enddate.getFullYear()}`;
 
         return (
             <TouchableOpacity style={styles.container} onPress={handleNavigate}>
@@ -52,28 +60,22 @@ const HolidayCard = ({vacation, handleNavigate}) => {
                     />
                 </TouchableOpacity>
 
-                {isLoading ? (
-                    <ActivityIndicator size="large" colors={COLORS.primary} />
-                ) : error ? (
-                    <Text>Er is iets mis gegaan. . .</Text>
-                ) : (
-                    <View style={styles.textContainer}>
-                        <Text style={styles.vacationName} numberOfLines={1}>
-                            {vacation.type.trim()}
-                        </Text>
-        
-                        <Text style={styles.vacationDate}>Regio: {vacation.regions[0].region}</Text>
-                        <Text style={styles.vacationDate}>Ingangsdatum: {startdate}</Text>
-                        <Text style={styles.vacationDate}>Einddatum: {enddate}</Text>
-                    </View>
-                )}  
+                <View style={styles.textContainer}>
+                    <Text style={styles.vacationName} numberOfLines={1}>
+                        {vacation.type.trim()}
+                    </Text>
+    
+                    <Text style={styles.vacationDate}>Regio: {vacation.regions[0].region}</Text>
+                    <Text style={styles.vacationDate}>Ingangsdatum: {vacation.regions[0].startdate}</Text>
+                    <Text style={styles.vacationDate}>Einddatum: {vacation.regions[0].enddate}</Text>
+                </View>
             </TouchableOpacity>
         );
-    // } else {
-    //     return (
-    //         <Text></Text>
-    //     );
-    // }
+    } else {
+        return (
+            <Text></Text>
+        );
+    }
 };
 
 export default HolidayCard;
