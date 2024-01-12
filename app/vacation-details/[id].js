@@ -12,8 +12,6 @@ const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotype
 let logo;
 let regions = [];
 
-const queryClient = new QueryClient();
-
 const VacationDetails = () => {
   // Router & Params
   const router = useRouter();
@@ -119,11 +117,9 @@ const VacationDetails = () => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
       <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
         <Text>Hello</Text>
       </SafeAreaView>
-    </QueryClientProvider>
 
     // <QueryClientProvider client={queryClient}>
     //   <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>

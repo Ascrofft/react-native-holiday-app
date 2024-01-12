@@ -45,10 +45,10 @@ const HolidayCard = ({vacation, handleNavigate}) => {
     let currentdate = new Date();
 
     // Return Card
-    if(enddate >= currentdate) {
+    // if(enddate >= currentdate) {
 
-        startdate = `${startdate.getDate()}-${startdate.getMonth() + 1}-${startdate.getFullYear()}`;
-        enddate = `${enddate.getDate()}-${enddate.getMonth() + 1}-${enddate.getFullYear()}`;
+    //     startdate = `${startdate.getDate()}-${startdate.getMonth() + 1}-${startdate.getFullYear()}`;
+    //     enddate = `${enddate.getDate()}-${enddate.getMonth() + 1}-${enddate.getFullYear()}`;
 
         return (
             <TouchableOpacity style={styles.container} onPress={handleNavigate}>
@@ -71,11 +71,11 @@ const HolidayCard = ({vacation, handleNavigate}) => {
                 </View>
             </TouchableOpacity>
         );
-    } else {
-        return (
-            <Text></Text>
-        );
-    }
+    // } else {
+    //     return (
+    //         <Text></Text>
+    //     );
+    // }
 };
 
 export default HolidayCard;
