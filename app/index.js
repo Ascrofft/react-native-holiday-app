@@ -12,7 +12,7 @@ const Home = () => {
     const router = useRouter();
 
     return (
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient} contextSharing={true}>
             <SafeAreaView
                 style={{
                     flex: 1,

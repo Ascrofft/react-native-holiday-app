@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useQuery, } from '@tanstack/react-query';
+import { useQuery, } from '@tanstack/react-query';
 import { Text, View, SafeAreaView, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { Stack, useRouter, useGlobalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -13,12 +13,8 @@ let logo;
 let regions = [];
 
 const VacationDetails = () => {
-  // Router & Params
   const router = useRouter();
   const global = useGlobalSearchParams();  
-
-  // Data
-  // const { data, isPending, error } = useFetch();
 
   const { isPending, error, data } = useQuery({
     queryKey: ['data'],
@@ -121,7 +117,7 @@ const VacationDetails = () => {
         <Text>Hello</Text>
       </SafeAreaView>
 
-    // <QueryClientProvider client={queryClient}>
+    
     //   <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
     //     <Stack.Screen
     //       options={{
@@ -171,7 +167,7 @@ const VacationDetails = () => {
     //     </>
 
     //   </SafeAreaView>
-    // </QueryClientProvider>
+    
   );
 };
 
