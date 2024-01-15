@@ -2,8 +2,11 @@ import { Stack } from 'expo-router';
 import { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 const Layout = () => {
     const [fontsLoaded] = useFonts({
@@ -20,7 +23,11 @@ const Layout = () => {
 
     if(!fontsLoaded) return null;
 
-    return <Stack onLayout={onLayoutRootView} />;
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Stack onLayout={onLayoutRootView} />
+        </QueryClientProvider>
+    );
 };
 
 export default Layout;

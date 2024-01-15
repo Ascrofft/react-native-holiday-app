@@ -1,11 +1,10 @@
-import { useQuery, } from '@tanstack/react-query';
 import { Text, View, SafeAreaView, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
 import { Stack, useRouter, useGlobalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
+import { useQuery, } from '@tanstack/react-query';
 
 import { Vacation, Regions, Specifics, ScreenHeaderBtn } from '../../components';
 import { COLORS, icons, SIZES } from '../../constants';
-// import useFetch from '../../hook/useFetch';
 
 const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2023-2024?output=json";
 
@@ -27,6 +26,8 @@ const VacationDetails = () => {
   // Use States
   const [refreshing, setRefreshing] = useState(false);
   const [activeRegion, setActiveRegion] = useState(regions[0]);
+
+  const onRefresh = () => { };
 
   // Set Region
   switch(global.id.trim()) {
@@ -58,9 +59,10 @@ const VacationDetails = () => {
   }
   
   const vacation = data.content[0].vacations[i];
-  console.log("VACATION : ", vacation);
+  // console.log("VACATION : ", vacation);
 
-  // Fn
+  console.log("REGION : ", vacation.regions[0].region);
+
   const displayRegionContent = () => {
     switch(activeRegion) {
       case "Noord":
@@ -70,7 +72,7 @@ const VacationDetails = () => {
           <Text>Er is iets fout gegaan. . .</Text>
         ) : (
           <Specifics
-            title="Regio Noord"
+            title={vacation.regions[0].region}
             points={vacation.regions[0]}
           />
         ))
@@ -81,7 +83,7 @@ const VacationDetails = () => {
           <Text>Er is iets fout gegaan. . .</Text>
         ) : (
           <Specifics
-            title="Regio Midden"
+            title={vacation.regions[1].region}
             points={vacation.regions[1]}
           />
         ))
@@ -92,7 +94,7 @@ const VacationDetails = () => {
           <Text>Er is iets fout gegaan. . .</Text>
         ) : (
           <Specifics
-            title="Regio Zuid"
+            title={vacation.regions[2].region}
             points={vacation.regions[2]}
           />
         ))
@@ -103,71 +105,74 @@ const VacationDetails = () => {
           <Text>Er is iets fout gegaan. . .</Text>
         ) : (
           <Specifics
-            title="Heel Nederland"
+            title={vacation.regions[0].region}
             points={vacation.regions[0]}
           />
         ))
       default:
-        break;
+        return ( isPending ? (
+          <ActivityIndicator size="large" colors={COLORS.primary} />
+        ) ? error : (
+          <Text>Er is iets fout gegaan. . .</Text>
+        ) : (
+          <Specifics
+            title={vacation.regions[0].region}
+            points={vacation.regions[0]}
+          />
+        ))
+      ;
     }
   };
 
   return (
       <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
-        <Text>Hello</Text>
+        <Stack.Screen
+          options={{
+            headerStyle: {backgroundColor: COLORS.lightWhite},
+            headerShadowVisible: false,
+            headerbackVisible: false,
+            headerLeft: () => (
+              <ScreenHeaderBtn
+                iconUrl={icons.left}
+                dimension="60%"
+                handlePress={() => router.back()}
+              />
+            ),
+            headerRight: () => (
+              <ScreenHeaderBtn
+                iconUrl={icons.share}
+                dimension="60%"
+              />
+            ),
+            headerTitle: ''
+          }}
+        />
+
+        <>
+          <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+            {isPending ? (
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            ) : error ? (
+              <Text>Something went wrong. . .</Text>
+            ) : (
+              <View style={{padding: SIZES.medium, paddingBottom: 100}}>
+                <Vacation
+                  vacationLogo={logo}
+                  vacationTitle={vacation.type.trim()}
+                />
+
+                <Regions
+                  regions={regions}
+                  activeRegion={activeRegion}
+                  setActiveRegion={setActiveRegion}
+                />
+
+                {displayRegionContent()}
+              </View>
+            )}
+          </ScrollView>
+        </>
       </SafeAreaView>
-
-    
-    //   <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
-    //     <Stack.Screen
-    //       options={{
-    //         headerStyle: {backgroundColor: COLORS.lightWhite},
-    //         headerShadowVisible: false,
-    //         headerbackVisible: false,
-    //         headerLeft: () => (
-    //           <ScreenHeaderBtn
-    //             iconUrl={icons.left}
-    //             dimension="60%"
-    //             handlePress={() => router.back()}
-    //           />
-    //         ),
-    //         headerRight: () => (
-    //           <ScreenHeaderBtn
-    //             iconUrl={icons.share}
-    //             dimension="60%"
-    //           />
-    //         ),
-    //         headerTitle: ''
-    //       }}
-    //     />
-
-    //     <>
-    //       <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-    //         {isPending ? (
-    //           <ActivityIndicator size="large" color={COLORS.primary} />
-    //         ) : error ? (
-    //           <Text>Something went wrong. . .</Text>
-    //         ) : (
-    //           <View style={{padding: SIZES.medium, paddingBottom: 100}}>
-    //             <Vacation
-    //               vacationLogo={logo}
-    //               vacationTitle={vacation.type.trim()}
-    //             />
-
-    //             <Regions
-    //               regions={regions}
-    //               activeRegion={activeRegion}
-    //               setActiveRegion={setActiveRegion}
-    //             />
-
-    //             {/* {displayRegionContent()} */}
-    //           </View>
-    //         )}
-    //       </ScrollView>
-    //     </>
-
-    //   </SafeAreaView>
-    
   );
 };
 

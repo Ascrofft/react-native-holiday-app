@@ -7,7 +7,7 @@ import { icons, SIZES } from '../../../constants';
 
 const vacationTypes = ["Herfstvakantie", "Kerstvakantie", "Voorjaarsvakantie", "Meivakantie", "Zomervakantie"];
 
-const Welcome = () => {
+const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
     const router = useRouter();
     const [activeVacationType, setActiveVacationType] = useState("Herfstvakantie");
 
@@ -22,13 +22,13 @@ const Welcome = () => {
                 <View style={styles.searchWrapper}>
                     <TextInput
                         style={styles.searchInput}
-                        value=""
-                        onChange={() => {}}
-                        placeholder="Zoeken. . ."
+                        value={searchTerm}
+                        onChange={(text) => setSearchTerm(text)}
+                        placeholder="Schoolvakantie zoeken. . ."
                     />
                 </View>
 
-                <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+                <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
                     <Image
                         source={icons.search}
                         resizeMode="contain"
@@ -45,7 +45,7 @@ const Welcome = () => {
                             style={styles.tab(activeVacationType, item)}
                             onPress={() => {
                                 setActiveVacationType(item);
-                                router.push(`/search/${item}`)
+                                router.push(`/vacation-details/${item}`)
                             }}
                         >
                             <Text style={styles.tabText(activeVacationType, item)}>{item}</Text>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import { QueryClient, QueryClientProvider, useQuery, } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 
 import { COLORS, icons, images, SIZES } from '../constants';
 import { ScreenHeaderBtn, Welcome, Holidays } from '../components';
@@ -11,9 +11,10 @@ const queryClient = new QueryClient();
 const Home = () => {
     const router = useRouter();
 
+    const [searchTerm, setSearchTerm] = useState("");
+
     return (
-        <QueryClientProvider client={queryClient} contextSharing={true}>
-            <SafeAreaView
+        <SafeAreaView
                 style={{
                     flex: 1,
                     backgroundColor: COLORS.lightWhite
@@ -38,13 +39,21 @@ const Home = () => {
                         }}
                     >
 
-                        <Welcome />
+                        <Welcome
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                            handleClick={() => {
+                                if(searchTerm) {
+                                    router.push(`/search/${searchTerm}`);
+                                }
+                            }}
+                        />
+
                         <Holidays />
                     </View>
                 </ScrollView>
             
             </SafeAreaView>
-        </QueryClientProvider>
     );
 };
 

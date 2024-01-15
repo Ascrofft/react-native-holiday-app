@@ -13,28 +13,33 @@ const Specifics = ({ title, points }) => {
     // console.log("CURRENT DATE : ", currentdate);
     // console.log("START DATE : ", startdate);
 
-    let DIT = startdate - currentdate;
+    let difference = startdate - currentdate;
 
-    // console.log("DIFFERENCE : ", DIT);
+    // console.log("DIFFERENCE : ", difference);
 
-    let DIY = Math.round(DIT / (1000 * 3600 * 24));
-    let daysLeft = `Nog ${DIY} dagen te gaan!`;
+    let days = Math.round(difference / (1000 * 3600 * 24));
+    let daysLeft;
 
-    if(DIY >= startdate && DIY <= enddate) {
-        daysLeft = `Het is vakantie!`;
+    // console.log("DAYS : ", days);
+    // console.log("CURRENTDATE : ", currentdate);
+    // console.log("STARTDATE : ", startdate);
+
+    if(currentdate < startdate) {
+        daysLeft = `Nog ${days} dagen te gaan!`;
     }
-    if(DIY >= enddate) {
-        daysLeft = `De vakantie is voorbij!`;
+    if(currentdate >= startdate && currentdate <= enddate) {
+        daysLeft = 'Het is vakantie!';
     }
-    
-    // console.log("DAYS LEFT : ", DIY);
+    if(currentdate > enddate) {
+        daysLeft = 'De vakantie is voorbij!';
+    }
 
     startdate = `${startdate.getDate()}-${startdate.getMonth() +1}-${startdate.getFullYear()}`;
     enddate = `${enddate.getDate()}-${enddate.getMonth() + 1}-${enddate.getFullYear()}`;
     
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title}:</Text>
+            <Text style={styles.title}>Regio: {title.charAt(0).toUpperCase() + title.slice(1)}</Text>
             <Text style={styles.daysLeft}>{daysLeft}</Text>
 
             <View style={styles.pointsContainer}>
