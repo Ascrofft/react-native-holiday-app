@@ -1,15 +1,45 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { Link, useRouter } from 'expo-router';
+import { View, SafeAreaView, ScrollView } from 'react-native';
+import { useRouter, Stack } from 'expo-router';
+
+import { COLORS, icons, SIZES } from '../../../constants';
+import { ScreenHeaderBtn, MenuItems } from '../../../components';
 
 const Menu = () => {
     const router = useRouter();
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-            <Link href="/Home">Home</Link>
-            <Link href="/Settings">Settings</Link>
-        </View>
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: COLORS.lightWhite
+            }}
+        >
+            <Stack.Screen
+                options={{
+                    headerStyle: { backgroundColor: COLORS.lightWhite },
+                    headerShadowVisible: false,
+                    headerRight: () => (
+                        <ScreenHeaderBtn
+                            iconUrl={ icons.back }
+                            dimension="60%"
+                            handlePress={(() => { router.back() })}
+                        />
+                    ),
+                    headerTitle: ""
+                }}
+            />
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View
+                    style={{
+                        flex: 1,
+                        padding: SIZES.medium
+                    }}
+                >
+                    <MenuItems />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

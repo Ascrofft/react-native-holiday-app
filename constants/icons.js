@@ -1,5 +1,8 @@
+import home from "../assets/icons/home.png";
 import menu from "../assets/icons/menu.png";
 import search from "../assets/icons/search.png";
+import back from "../assets/icons/back.png";
+import settings from "../assets/icons/setting.png";
 
 import heart from "../assets/icons/heart.png";
 import heartOutline from "../assets/icons/heart-ol.png";
@@ -17,8 +20,11 @@ import crocus from '../assets/icons/crocus.png';
 import sun from '../assets/icons/sun.png';
 
 export default {
+    home,
     menu,
     search,
+    back,
+    settings,
 
     heart,
     heartOutline,

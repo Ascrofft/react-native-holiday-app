@@ -3,8 +3,8 @@ import { Stack, useRouter, useGlobalSearchParams } from 'expo-router';
 import { useCallback, useState, useEffect } from 'react';
 import { useQuery, } from '@tanstack/react-query';
 
-import { Vacation, Regions, Specifics, ScreenHeaderBtn } from '../../../../components';
-import { COLORS, icons, SIZES } from '../../../../constants';
+import { Vacation, Regions, Specifics, ScreenHeaderBtn } from '../../components';
+import { COLORS, icons, SIZES } from '../../constants';
 // import useFetch from '../../hook/useFetch';
 
 const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2023-2024?output=json";
