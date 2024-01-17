@@ -15,19 +15,27 @@ const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotype
 const Holidays = () => {
     const router = useRouter();
 
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { isPending, error, data } = useQuery({
+        queryKey: ['data'],
+        queryFn: () =>
+            fetch(url).then((res) =>
+            res.json(),
+        ),
+    });
 
-    useEffect(() => {
-        fetch(url)
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => setError(error), console.log(error))
-            .finally(() => setIsLoading(false));
-    }, []);
+    // const [data, setData] = useState([]);
+    // const [isLoading, setIsLoading] = useState(true);
+    // const [error, setError] = useState(null);
 
-    console.log("DATA : ", data);
+    // useEffect(() => {
+    //     fetch(url)
+    //         .then((response) => response.json())
+    //         .then((json) => setData(json))
+    //         .catch((error) => setError(error), console.log(error))
+    //         .finally(() => setIsLoading(false));
+    // }, []);
+
+    // console.log("DATA : ", data);
 
     // onLoad = async () => {
     //     try {
@@ -62,14 +70,6 @@ const Holidays = () => {
 
     // const { data, isLoading, error } = useFetch();
 
-    // const { isPending, error, data } = useQuery({
-    //     queryKey: ['data'],
-    //     queryFn: () =>
-    //         fetch(url).then((res) =>
-    //         res.json(),
-    //     ),
-    // });
-
     // var storage = [];
 
     // localStorage.setItem("data", JSON.stringify(data));
@@ -84,7 +84,7 @@ const Holidays = () => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                {isLoading ? (
+                {isPending ? (
                     <ActivityIndicator size="large" colors={COLORS.primary} />
                 ) : error ? (
                     <Text>Er is iets fout gegaan. . .</Text>
@@ -95,7 +95,7 @@ const Holidays = () => {
             
             {console.log("TEST3")}
             <View style={styles.cardsContainer}>
-                {isLoading ? (
+                {isPending ? (
                     <ActivityIndicator size="large" colors={COLORS.primary} />
                 ) : error ? (
                     <Text>Er is iets fout gegaan. . .</Text>

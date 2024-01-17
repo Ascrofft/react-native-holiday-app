@@ -21,7 +21,7 @@ const useFetch = () => {
     const fetchData = () => {
         setIsLoading(true);
 
-        console.log("TEST 1");
+        // console.log("TEST 1");
 
         try {
             axios.get(url).then(res => setData(res.data));
