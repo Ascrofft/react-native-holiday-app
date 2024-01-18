@@ -23,64 +23,6 @@ const Holidays = () => {
         ),
     });
 
-    // const [data, setData] = useState([]);
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     fetch(url)
-    //         .then((response) => response.json())
-    //         .then((json) => setData(json))
-    //         .catch((error) => setError(error), console.log(error))
-    //         .finally(() => setIsLoading(false));
-    // }, []);
-
-    // console.log("DATA : ", data);
-
-    // onLoad = async () => {
-    //     try {
-    //         await AsyncStorage.setItem('data', data.content[0]);
-    //     } catch(err) {
-    //         console.log("onLoad ERROR : ", err);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     onLoad();
-    // }, []);
-
-    // getData = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('data');
-
-    //         console.log("VALUE : ", value);
-    //         if(value !== null) {
-    //             this.setState({ data: value })
-    //         }
-    //     } catch(err) {
-    //         console.log("getData ERROR : ", err);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     this.getData();
-    // }, []);
-
-
-
-    // const { data, isLoading, error } = useFetch();
-
-    // var storage = [];
-
-    // localStorage.setItem("data", JSON.stringify(data));
-
-    // useEffect(() => {
-    //     const content = localStorage.getItem("data");
-    //     console.log("DATA : ", JSON.parse(content));
-    // }, []);
-
-    // console.log("TITLE 2 : ", data.content[0].title.trim());
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>

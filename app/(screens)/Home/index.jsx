@@ -4,18 +4,9 @@ import { Stack, useRouter, useGlobalSearchParams } from 'expo-router';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { COLORS, icons, images, SIZES } from '../../../constants';
+import { COLORS, icons, SIZES } from '../../../constants';
 import { ScreenHeaderBtn, Welcome, Holidays } from '../../../components';
-import { gemNoord, gemMidden, gemZuid } from '../../../data/subregions';
 
-// Store String Data
-const storeStringData = async (key, value) => {
-    try {
-        await AsyncStorage.setItem(key, value);
-    } catch(e) {
-        console.log("storeStringData ERROR : ", e);
-    }
-};
 // Store Object Data
 const storeObjectData = async (key, value) => {
     try {
@@ -25,20 +16,8 @@ const storeObjectData = async (key, value) => {
         console.log("storeObjectData ERROR : ", e);
     }
 };
-// Read String Value
-const readStringValue = async (key) => {
-    try {
-        const value = await AsyncStorage.getItem(key);
-        if(value !== null) {
-            console.log("readStringValue DATA : ", value);
-            return value;
-        }
-    } catch(e) {
-        console.log("readStringValue ERROR : ", e);
-    }
-};
 // Read Object Value
-const readObjectValue = async (key) => {
+const readAsyncStorageData = async (key) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -57,9 +36,9 @@ const Home = () => {
     const [asyncStorage, setAsyncStorage] = useState();
 
     // Get and Set Address from AsyncStorage
-    const getAsyncStorageData = async () => {
-        const address = await readObjectValue("Address");
-        setAsyncStorage(address);
+    const getAddress = async () => {
+        const data = await readAsyncStorageData("Address");
+        setAsyncStorage(data);
         console.log("AsyncStorageData DATA [HOME] : ", asyncStorage);
     }
 
@@ -114,7 +93,7 @@ const Home = () => {
         };
         
         getPermissions();
-        getAsyncStorageData();
+        getAddress();
     }, []);
 
     return (
@@ -148,7 +127,6 @@ const Home = () => {
                         padding: SIZES.medium
                     }}
                 >
-                    {/* Welcome */}
                     <Welcome
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
@@ -159,23 +137,8 @@ const Home = () => {
                         }}
                     />
 
-                    {/* <View
-                        style={{
-                            flex: 1,
-                            padding: SIZES.medium
-                        }}
-                    >
-                        <TextInput placeholder='Plaatsnaam' onChangeText={setAddress} />
-                        <TouchableOpacity onPress={geocode}>
-                            <Text>Geolocation Address</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={reverseGeocode}>
-                            <Text>Reversed Geolocation Address</Text>
-                        </TouchableOpacity>
-                    </View> */}
-
-                    {/* Holidays */}
-                    <Holidays />   
+                    <Holidays />
+                     
                 </View>
             </ScrollView>
         </SafeAreaView>

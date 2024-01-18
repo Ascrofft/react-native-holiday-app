@@ -7,9 +7,8 @@ import Welcome from "./home/welcome/Welcome";
 import Holidays from "./home/holidays/Holidays";
 
 // screens
-import MenuItems from "./screens/Menu";
-// import MenuItems from "./screens/MenuItems";
-// import Settings from "./screens/Settings";
+import MenuItems from "./screens/MenuItems/MenuItems";
+import SettingItems from "./screens/Settings/SettingItems";
 
 // holidaydetails
 import Vacation from "./holidaydetails/vacation/Vacation";
@@ -24,6 +23,7 @@ export {
   Holidays,
 
   MenuItems,
+  SettingItems,
   
   Vacation,
   Regions,

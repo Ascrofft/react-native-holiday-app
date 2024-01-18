@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,13 +7,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SIZES, COLORS, icons } from '../../../constants';
 import { ScreenHeaderBtn, SettingItems } from '../../../components';
 
-// Read Object Value
-const readObjectValue = async (key) => {
+// Read Async Storage Data
+const readAsyncStorageData = async (key) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-      // error reading value
+      console.log("readAsyncStorageData ERROR : ", e);
     }
 };
 
@@ -23,14 +23,14 @@ const Settings = () => {
     const [asyncStorage, setAsyncStorage] = useState();
 
     // Get and Set Address from AsyncStorage
-    const getAsyncStorageData = async () => {
-        const address = await readObjectValue("Address");
-        setAsyncStorage(address);
+    const getAsyncStorageData = async (key) => {
+        const data = await readAsyncStorageData(key);
+        setAsyncStorage(data);
         console.log("getAsyncStorageData DATA [SETTINGS] : ", asyncStorage);
     }
 
     useEffect(() => {
-        getAsyncStorageData();
+        getAsyncStorageData("Address");
     }, []);
 
     return (
@@ -65,7 +65,6 @@ const Settings = () => {
                     <SettingItems />
                 </View>
             </ScrollView>
-
         </SafeAreaView>        
     );
 };
