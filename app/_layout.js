@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import * as Location from 'expo-location';
 // import { useCallback } from 'react';
 // import * as SplashScreen from 'expo-splash-screen';
 // import { NavigationContainer } from '@react-navigation/native';

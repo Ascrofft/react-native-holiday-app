@@ -1,12 +1,10 @@
 import { View, SafeAreaView, ScrollView } from 'react-native';
-import { useRouter, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 
-import { COLORS, icons, SIZES } from '../../../constants';
-import { ScreenHeaderBtn, MenuItems } from '../../../components';
+import { COLORS, SIZES } from '../../../constants';
+import { MenuItems } from '../../../components';
 
 const Menu = () => {
-    const router = useRouter();
-
     return (
         <SafeAreaView
             style={{
@@ -18,14 +16,7 @@ const Menu = () => {
                 options={{
                     headerStyle: { backgroundColor: COLORS.lightWhite },
                     headerShadowVisible: false,
-                    headerRight: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={ icons.back }
-                            dimension="60%"
-                            handlePress={(() => { router.back() })}
-                        />
-                    ),
-                    headerTitle: ""
+                    headerTitle: ''
                 }}
             />
 

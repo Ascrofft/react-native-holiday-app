@@ -6,8 +6,10 @@ import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
 import Welcome from "./home/welcome/Welcome";
 import Holidays from "./home/holidays/Holidays";
 
-// menu
-import MenuItems from "./menu/menuitems/MenuItems";
+// screens
+import MenuItems from "./screens/Menu";
+// import MenuItems from "./screens/MenuItems";
+// import Settings from "./screens/Settings";
 
 // holidaydetails
 import Vacation from "./holidaydetails/vacation/Vacation";

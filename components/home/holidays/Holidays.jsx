@@ -93,7 +93,6 @@ const Holidays = () => {
                 )}
             </View>
             
-            {console.log("TEST3")}
             <View style={styles.cardsContainer}>
                 {isPending ? (
                     <ActivityIndicator size="large" colors={COLORS.primary} />
