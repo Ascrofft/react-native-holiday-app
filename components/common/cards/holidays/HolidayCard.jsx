@@ -28,7 +28,7 @@ const HolidayCard = ({vacation, handleNavigate}) => {
     };
 
     getRegion();
-    // console.log("getRegion : ", region);
+    console.log("getRegion : ", region);
 
     // Set Logo
     switch(vacation.type.trim()) {

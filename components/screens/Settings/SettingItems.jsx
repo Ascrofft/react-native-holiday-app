@@ -42,7 +42,7 @@ const SettingItems = () => {
     const [address, setAddress] = useState();
     const [region, setRegion] = useState(0);
 
-    const [value, setValue] = useState(selectListData[0]);
+    const [value, setValue] = useState(selectListData[region]);
     const [isFocus, setIsFocus] = useState(false);
 
     const locate = async () => {
