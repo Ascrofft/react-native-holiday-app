@@ -26,6 +26,31 @@ const readAsyncStorageData = async (key) => {
     }
 };
 
+// Address --> Location
+const geocode = async () => {
+    let geocodedLocation = await Location.geocodeAsync(address);
+
+    console.log("geocode GEOCODED LOCATION : ", geocodedLocation);
+
+    let reverseGeocodedLocation = await Location.reverseGeocodeAsync({
+        longitude: geocodedLocation[0].longitude,
+        latitude: geocodedLocation[0].latitude
+    });
+
+    setAddress(reverseGeocodedLocation);
+    
+    console.log("geocode ADDRESS : ", address);
+};
+
+// Location --> Address
+const reverseGeocode = async () => {
+    const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
+        longitude: location.coords.longitude,
+        latitude: location.coords.latitude
+    });
+    console.log("REVERSED GEOCODED LOCATION : ", reverseGeocodedAddress);
+};
+
 const Home = () => {
     const router = useRouter();
 
@@ -41,32 +66,7 @@ const Home = () => {
         setAsyncStorage(data);
         console.log("AsyncStorageData DATA [HOME] : ", asyncStorage);
     }
-
-    // Address --> Location
-    const geocode = async () => {
-        let geocodedLocation = await Location.geocodeAsync(address);
-
-        console.log("geocode GEOCODED LOCATION : ", geocodedLocation);
-
-        let reverseGeocodedLocation = await Location.reverseGeocodeAsync({
-            longitude: geocodedLocation[0].longitude,
-            latitude: geocodedLocation[0].latitude
-        });
-
-        setAddress(reverseGeocodedLocation);
-        
-        console.log("geocode ADDRESS : ", address);
-    };
-
-    // Location --> Address
-    const reverseGeocode = async () => {
-        const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
-            longitude: location.coords.longitude,
-            latitude: location.coords.latitude
-        });
-        console.log("REVERSED GEOCODED LOCATION : ", reverseGeocodedAddress);
-    };
-
+    
     useEffect(() => {
         const getPermissions = async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();

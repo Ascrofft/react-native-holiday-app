@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import * as Location from 'expo-location';
-// import { useCallback } from 'react';
-// import * as SplashScreen from 'expo-splash-screen';
-// import { NavigationContainer } from '@react-navigation/native';
+import * as SplashScreen from 'expo-splash-screen';
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
 
@@ -18,39 +15,21 @@ const Layout = () => {
         DMRegular: require('../assets/fonts/DMSans-Regular.ttf')
     });
 
-    // const onLayoutRootView = useCallback(async () => {
-    //     if(fontsLoaded) {
-    //         await SplashScreen.hideAsync();
-    //     }
-    // }, [fontsLoaded]);
+    const onLayoutRootView = useCallback(async () => {
+        if(fontsLoaded) {
+            await SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded]);
 
     if(!fontsLoaded) return null;
 
     return (
         <QueryClientProvider client={queryClient}>
             <Stack>
-                <Stack.Screen name="(screens)" options={{ headerShown: false }} />
+                <Stack.Screen name="(screens)" options={{ headerShown: false }} onLayout={onLayoutRootView} />
             </Stack>
         </QueryClientProvider>
     );
-
-    // return (
-    //     <QueryClientProvider client={queryClient}>
-    //         <Stack onLayout={onLayoutRootView} />
-    //     </QueryClientProvider>
-    // );
-
-    // return (
-    //     <NavigationContainer>
-
-    //     </NavigationContainer>
-    // );
-
-    // return (
-    //     <Stack>
-    //         <Stack.Screen name="(screens)" options={{ headerShown: false }} />
-    //     </Stack>
-    // );
 };
 
 export default Layout;
