@@ -50,15 +50,15 @@ const SettingItems = () => {
         console.log("LOCATE() HAS BEEN CALLED ! ! !");
         
 
-        if(gemNoord.includes(address?.subregion)) {
+        if(gemNoord.includes(address[0]?.subregion)) {
             setValue(selectListData[0]);
             storeObjectData("Region", region);
             console.log("NOORD!!!");
-        } else if(gemMidden.includes(address?.subregion)) {
+        } else if(gemMidden.includes(address[0]?.subregion)) {
             setValue(selectListData[1]);
             storeObjectData("Region", region);
             console.log("MIDDEN!!!!");
-        } else if(gemZuid.includes(address?.subregion)) {
+        } else if(gemZuid.includes(address[0]?.subregion)) {
             setValue(selectListData[2]);
             storeObjectData("Region", region);
             console.log("ZUID!!");

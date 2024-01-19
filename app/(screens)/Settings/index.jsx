@@ -51,7 +51,7 @@ const Settings = () => {
                             handlePress={(() => { router.push('/Menu') })}
                         />
                     ),
-                    headerTitle: `Locatie: ${asyncStorage ? asyncStorage?.city : '. . .'}`
+                    headerTitle: `Locatie: ${asyncStorage ? asyncStorage[0]?.city : '. . .'}`
                 }}
             />
 

@@ -79,7 +79,7 @@ const Home = () => {
             let currentLocation = await Location.getCurrentPositionAsync({});
 
             setLocation(currentLocation);
-            // console.log("getPermissions LOCATION : ", location);
+            console.log("getPermissions LOCATION : ", location);
 
             let reverseGeocodedAddress = await Location.reverseGeocodeAsync({
                 longitude: currentLocation.coords.longitude,
@@ -87,9 +87,9 @@ const Home = () => {
             });
 
             setAddress(reverseGeocodedAddress);
-            // cconsole.log("getPermissions ADDRESS : ", address);
+            console.log("getPermissions ADDRESS : ", address);
 
-            if(address !== undefined) storeObjectData("subregion", address);
+            if(address) storeObjectData("Address", address);
         };
         
         getPermissions();
@@ -115,7 +115,7 @@ const Home = () => {
                             handlePress={(() => { router.push('/Menu') })}
                         />
                     ),
-                    headerTitle: `Locatie: ${asyncStorage ? asyncStorage?.city : '. . .'}`
+                    headerTitle: `Locatie: ${asyncStorage ? asyncStorage[0]?.city : '. . .'}`
                 }}
             />
 
