@@ -86,36 +86,44 @@ const SettingItems = () => {
     
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={locate}>
-                <Text>
-                    Gebruik huidige locatie!
-                </Text>
-            </TouchableOpacity>
+            <View style={{ width: "100%", marginBottom: 20 }}>
+                <Text style={styles.primaryText}>Instellingen</Text>
+                <Text style={styles.secondaryText}>Je bevind je in regio: {value?.region}</Text>
+            </View>
 
-            <Text>Regio: {value?.region}</Text>
-            <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={selectListData}
-                maxHeight={300}
-                labelField="region"
-                valueField="id"
-                value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={(item) => {
-                    setValue(item);
-                    setRegion(item.id);
-                    storeObjectData("Region", item.id);
-                    console.log("setRegion : ", region);
-                    setIsFocus(false);
-                }}
-            />
+            <View style={styles.searchContainer}>
+                <View style={styles.searchWrapper}>
+                    <Dropdown
+                        style={[styles.searchInput, isFocus && { borderColor: 'blue' }]}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={styles.iconStyle}
+                        data={selectListData}
+                        maxHeight={300}
+                        labelField="region"
+                        valueField="id"
+                        value={value}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        onChange={(item) => {
+                            setValue(item);
+                            setRegion(item.id);
+                            storeObjectData("Region", item.id);
+                            // console.log("setRegion : ", region);
+                            setIsFocus(false);
+                        }}
+                    />
+                </View>
+            </View>
 
-            <Text></Text>
+            <View style={styles.searchContainer}>
+                <View style={styles.searchWrapper}>
+                    <TouchableOpacity style={styles.searchBtn} onPress={locate}>
+                        <Text style={{ color: "#FFF", fontWeight: "bold" }}>Huidige locatie ophalen</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 };
