@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
 import styles from './Holidays.style';
-import { COLORS, SIZES } from '../../../constants';
+import { COLORS } from '../../../constants';
 import HolidayCard from '../../common/cards/holidays/HolidayCard';
-import useFetch from '../../../hook/useFetch';
 
 const url = "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2023-2024?output=json";
 
